@@ -41,18 +41,24 @@ var chartGroup = svg.append("g")
 
 
 // Load the data from the csv
-d3.csv("./assets/data/data.csv", function(error, dfc){
-    if (error) return console.warn(error);  // this will display the error, if an error has been caught
-    //console.log(data);
+d3.csv("./assets/data/data.csv", function(err, dfc){
+    if (err) {
+        console.warn(err);
+        console.warn(dfc);
+        throw err;
+    }  // this will display the error, if an error has been caught
+    console.log("got here");
+    console.log(dfc);
        
-    dfc.forEach(function(d){ 
-    dfc.poverty = +dfc.poverty;
-    dfc.healthcare = +dfc.healthcare;
+    //dfc.forEach(function(d){ 
+    //dfc.poverty = +dfc.poverty;
+    //dfc.healthcare = +dfc.healthcare;
 
-    });
-/*
+    //});
+    return "";
+});
 console.log("loaded data");
-
+/*
 var yScale = d3.scaleLinear()
     .domain([d3.extent(dfc.poverty)])
     .range([0, chartHeight]);
@@ -75,18 +81,19 @@ chartGroup.append("g")
 chartGroup.append("g")
     .call(yAxis);
 */
-});
+
 /*
 
 // Append Data to chartGroup
-chartGroup.selectAll(".stateCircle")
+var circlesGroup = chartGroup.selectAll("circle")
     .data(dfc)
     .enter()   // because there are no bars in the html, all of them will be created
-    .append("Spot")
-    .clased("barstateCircle", true)
-    .attr("x", (d,i) => xScale(dataCategories[i]))   // remember xScale can provide the individual x coord of eache point in it's array
-    .attr("y", d => yScale(d))
-    .attr("width", xScale.bandwidth())
-    .attr("height", d => chartHeight - yScale(d));
+    .append("circle")
+    .clased(".stateCircle", true)
+    .attr("cx", d => xScale(d[chosenXAxis]))
+    .attr("cy", d => yScale(d.num_hits))
+    .attr("r", 20)
+    .attr("fill", "pink")
+    .attr("opacity", ".5");
 
 */

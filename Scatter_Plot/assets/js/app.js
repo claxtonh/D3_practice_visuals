@@ -12,15 +12,15 @@ Using the D3 techniques we taught you in class, create a scatter plot that repre
 // @TODO: YOUR CODE HERE!
 
 //svg container
-var svgHeight = 400;
+var svgHeight = 150;
 var svgWidth = 1000;
 
 //margins
 var margin = {
-    top: 50,
-    right: 50,
-    bottom: 50,
-    left: 50
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10
 };
 
 // char area minus margins
@@ -41,59 +41,69 @@ var chartGroup = svg.append("g")
 
 
 // Load the data from the csv
-d3.csv("./assets/data/data.csv", function(dfc){
+d3.csv("data.csv").then(function(data){
     //if (err) {
       //  console.warn(err);
        // console.warn(dfc);
        // throw err;
     //}  // this will display the error, if an error has been caught
     console.log("got here");
-    console.log(dfc);
-       
-    //dfc.forEach(function(d){ 
-    //dfc.poverty = +dfc.poverty;
-    //dfc.healthcare = +dfc.healthcare;
+    console.log(data);
+     
+    // Parse data with a for loop
+    /*
+    for (var i = 0; i < data.length; i++){
+        console.log(data[i].poverty);
+        console.log(data[i].healthcare);
+        console.log(i);
+    };
+    */
 
-    //});
-    //return "";
-});
-console.log("loaded data");
-/*
-var yScale = d3.scaleLinear()
-    .domain([d3.extent(dfc.poverty)])
+    //parse the data with forEach function
+    data.forEach(function(d){ 
+        data.poverty = +data.poverty;
+        data.healthcare = +data.healthcare;
+        console.log("data parsed");
+    });
+
+    var yScale = d3.scaleLinear()
+    .domain([d3.extent(data.poverty)])
     .range([0, chartHeight]);
 
-var xScale = d3.scaleLinear()
-    .domain([d3.extent(dfc.healthcare)])
+    var xScale = d3.scaleLinear()
+    .domain([d3.extent(data.healthcare)])
     .range([0, chartWidth]);
 
-// create axes    
-var yAxis = d3.axisLeft(yScale);
-var xAxis = d3.axisBottom(xScale);
-console.log("created axes")
-
-// set x to the bottom of the chart
-chartGroup.append("g")
+    // create axes    
+    var yAxis = d3.axisLeft(yScale);
+    var xAxis = d3.axisBottom(xScale);
+    console.log("created axes");
+    
+    // set x to the bottom of the chart
+    chartGroup.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(xAxis);
 
-// set y to the left of the chart
-chartGroup.append("g")
+    // set y to the left of the chart
+    chartGroup.append("g")
     .call(yAxis);
-*/
+    
 
-/*
+    
 
-// Append Data to chartGroup
-var circlesGroup = chartGroup.selectAll("circle")
-    .data(dfc)
-    .enter()   // because there are no bars in the html, all of them will be created
+    // Append Data to chartGroup
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(data)
+    .enter()   // because there are no circles in the html, all of them will be created
     .append("circle")
-    .clased(".stateCircle", true)
-    .attr("cx", d => xScale(d[chosenXAxis]))
-    .attr("cy", d => yScale(d.num_hits))
-    .attr("r", 20)
+    .classed(".stateCircle", true)
+    .attr("cx", d => xScale(d.poverty))
+    .attr("cy", d => yScale(d.healthcare))
+    .attr("r", 2)
     .attr("fill", "pink")
     .attr("opacity", ".5");
 
-*/
+
+
+});
+//console.log("loaded data");

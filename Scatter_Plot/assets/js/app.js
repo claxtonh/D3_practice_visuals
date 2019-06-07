@@ -41,12 +41,12 @@ var chartGroup = svg.append("g")
 
 
 // Load the data from the csv
-d3.csv("./assets/data/data.csv", function(err, dfc){
-    if (err) {
-        console.warn(err);
-        console.warn(dfc);
-        throw err;
-    }  // this will display the error, if an error has been caught
+d3.csv("./assets/data/data.csv", function(dfc){
+    //if (err) {
+      //  console.warn(err);
+       // console.warn(dfc);
+       // throw err;
+    //}  // this will display the error, if an error has been caught
     console.log("got here");
     console.log(dfc);
        
@@ -55,7 +55,7 @@ d3.csv("./assets/data/data.csv", function(err, dfc){
     //dfc.healthcare = +dfc.healthcare;
 
     //});
-    return "";
+    //return "";
 });
 console.log("loaded data");
 /*

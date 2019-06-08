@@ -12,15 +12,15 @@ Using the D3 techniques we taught you in class, create a scatter plot that repre
 // @TODO: YOUR CODE HERE!
 
 //svg container
-var svgHeight = 150;
+var svgHeight = 550;
 var svgWidth = 1000;
 
 //margins
 var margin = {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10
+    top: 20,
+    right: 20,
+    bottom: 20,
+    left: 20
 };
 
 // char area minus margins
@@ -32,7 +32,7 @@ console.log(chartWidth);
 
 // create svg container
 var svg = d3.select("#scatter").append("svg") 
-    .attr("heigh", svgHeight)
+    .attr("height", svgHeight)
     .attr("width", svgWidth);
 
 // shift everything over by the margins

@@ -48,7 +48,7 @@ d3.csv("data.csv").then(function(data){
        // throw err;
     //}  // this will display the error, if an error has been caught
     console.log("got here");
-    console.log(data);
+    
      
     // Parse data with a for loop
     /*
@@ -60,18 +60,26 @@ d3.csv("data.csv").then(function(data){
     */
 
     //parse the data with forEach function
-    data.forEach(function(d){ 
-        data.poverty = +data.poverty;
-        data.healthcare = +data.healthcare;
+        data.forEach(function(d){ 
+        d.poverty = +d.poverty;
+        console.log(d.poverty);
+        
+        d.healthcare = +d.healthcare;
+        console.log(d.healthcare);
         console.log("data parsed");
     });
 
+    console.log(data);
+    console.log(d3.extent(data, function(d) {return d.poverty}));
+    // refactored via arrow function
+    console.log(d3.extent(data, d => d.poverty));
+
     var yScale = d3.scaleLinear()
-    .domain([d3.extent(data.poverty)])
+    .domain(d3.extent(data, d => d.poverty))
     .range([0, chartHeight]);
 
     var xScale = d3.scaleLinear()
-    .domain([d3.extent(data.healthcare)])
+    .domain(d3.extent(data, d => d.healthcare))
     .range([0, chartWidth]);
 
     // create axes    
@@ -88,7 +96,9 @@ d3.csv("data.csv").then(function(data){
     chartGroup.append("g")
     .call(yAxis);
     
-
+    console.log("testing scales");
+    console.log(data[0].poverty);
+    console.log(xScale(data[0].poverty));
     
 
     // Append Data to chartGroup
@@ -100,7 +110,7 @@ d3.csv("data.csv").then(function(data){
     .attr("cx", d => xScale(d.poverty))
     .attr("cy", d => yScale(d.healthcare))
     .attr("r", 2)
-    .attr("fill", "pink")
+    .attr("fill", "blue")
     .attr("opacity", ".5");
 
 

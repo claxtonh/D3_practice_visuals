@@ -111,7 +111,8 @@ d3.csv("data.csv").then(function(data){
     .attr("cy", d => yScale(d.healthcare))
     .attr("r", 2)
     .attr("fill", "blue")
-    .attr("opacity", ".5");
+    .attr("opacity", ".5")
+    .text(d => d.abbr);
 
 
 
